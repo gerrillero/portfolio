@@ -10,6 +10,10 @@ export class ProductosService {
     this.load_productos();
    }
 
+  load_product(cod: any): any {
+    return this.http.get(`https://portfolio-26b5e.firebaseio.com/productos/${cod}.json`);
+  }
+
   load_productos(): any {
     this.cargando = true;
 
