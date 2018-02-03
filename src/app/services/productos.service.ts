@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http' ;
-import { Promise, resolve, reject } from 'q';
+import { Http } from '@angular/http';
+import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class ProductosService {
@@ -41,23 +41,17 @@ export class ProductosService {
   public load_productos() {
     this.cargando = true;
 
-    let promise = new Promise ( (resolve, reject) =>{
+    let promise = new Promise( ( resolve, reject ) => {
 
       this.http.get('https://portfolio-26b5e.firebaseio.com/productos_idx.json')
       .subscribe(response => {
-        // console.log(response);
-
-        // setTimeout(() => {
           this.productos = response.json();
           this.cargando = false;
-       // }, 2000);
-       resolve();
-
+          resolve();
       });
 
-      return promise;
     });
-
+    return promise;
   }
 
 }
